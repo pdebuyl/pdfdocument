@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 
 from django.conf import settings
@@ -17,10 +19,14 @@ class ExampleStationery(object):
         left_offset = 28.6*mm
 
         canvas.saveState()
-        canvas.setFont('%s-Bold' % pdfdocument.style.fontName, 10)
-        canvas.drawString(26*mm, 284*mm, 'PLATA')
+        canvas.setFont('%s' % pdfdocument.style.fontName, 12)
+        canvas.drawString(26*mm, 284*mm, 'Conference Registration Platform')
+        canvas.setFont('%s' % pdfdocument.style.fontName, 12)
+        canvas.drawString(26*mm, 276*mm, u'Université libre de Bruxelles')
         canvas.setFont('%s' % pdfdocument.style.fontName, 10)
-        canvas.drawString(26*mm + left_offset, 284*mm, 'Django Shop Software')
+        canvas.drawString(26*mm, 268*mm, u'Av. F. Roosevelt, 50 - 1050 Brussels - Belgium')
+        canvas.setFont('%s' % pdfdocument.style.fontName, 12)
+        canvas.drawString(26*mm, 260*mm, u'EuroSciPy 2013 - The 6th European Conference on Python in Science')
         pdfdocument.draw_watermark(canvas)
         canvas.restoreState()
 
@@ -28,9 +34,6 @@ class ExampleStationery(object):
         canvas.setFont('%s' % pdfdocument.style.fontName, 6)
         for i, text in enumerate(reversed([pdfdocument.doc.page_index_string()])):
             canvas.drawRightString(190*mm, (8+3*i)*mm, text)
-
-        for i, text in enumerate(reversed(['PLATA', 'Something'])):
-            canvas.drawString(26*mm + left_offset, (8+3*i)*mm, text)
 
         logo = getattr(settings, 'PDF_LOGO_SETTINGS', None)
         if logo:
